@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Vehicle;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -11,12 +12,20 @@ class SearchVehicle extends Component
     #[Validate('required| ')]
     public $vrn = '';
 
-    public function search() {
+    public function usePrevious($vrn)
+    {
+        $this->vrn = $vrn;
+    }
+
+    public function search()
+    {
         $this->validate();
 
         $vehicle = Vehicle::firstOrCreate(['vrn' => $this->vrn]);
-
         $vehicle->save();
+
+        $user = Auth::user();
+        $user->searches()->syncWithoutDetaching([$vehicle->id]);
     }
 
     public function render()
