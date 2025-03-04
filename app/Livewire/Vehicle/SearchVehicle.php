@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Vehicle;
 
 use App\Models\Vehicle;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +30,6 @@ class SearchVehicle extends Component
 
     public function render()
     {
-        return view('livewire.search-vehicle');
+        return view('livewire.vehicle.search-vehicle');
     }
 }
