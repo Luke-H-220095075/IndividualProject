@@ -19,8 +19,12 @@ class FetchVehicleDetails extends Component
                 'registrationNumber' => $vrn
             ]);
 
-        $this->colour = $response->json('colour');
-        $this->make = $response->json('make');
+        if ($response->successful()) {
+            $this->dispatch('valid');
+        }
+
+        $this->colour = $response->json('colour') ?? 'Not Found';
+        $this->make = $response->json('make') ?? 'Not Found';
     }
 
     public function render()
