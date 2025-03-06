@@ -20,23 +20,22 @@ class SearchVehicle extends Component
         $this->vrn = strtoupper($this->vrn);
         $this->vrn = str_replace(' ', '', $this->vrn);
 
-        $vehicle = Vehicle::firstOrCreate(['vrn' => $this->vrn]);
-        $vehicle->save();
+        $this->dispatch('searched', $this->vrn);
+    }
 
-        $this->dispatch('searched', vrn: $this->vrn);
+    #[On('valid')]
+    public function saveVehicle(): void
+    {
+        $vehicle = Vehicle::firstOrCreate(['vrn' => $this->vrn]);
+
+        $user = Auth::user();
+        $user->searches()->syncWithoutDetaching([$vehicle->id]);
     }
 
     public function usePrevious($vrn): void
     {
         $this->vrn = $vrn;
         $this->search();
-    }
-
-    #[On('valid')]
-    public function addToPrevious($vehicle): void
-    {
-        $user = Auth::user();
-        $user->searches()->syncWithoutDetaching([$vehicle->id]);
     }
 
     public function render()

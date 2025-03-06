@@ -10,7 +10,7 @@
     </flux:input.group>
     <div class="text-center w-full h-32 grid grid-cols-2 gap-1 overflow-hidden py-1">
         @foreach(auth()->user()->searches as $search)
-            <flux:badge wire:click="usePrevious('{{ $search->vrn }}')" variant="solid" color="yellow" class="justify-self-center w-fit h-fit">
+            <flux:badge wire:click="usePrevious('{{ $search->vrn }}')" variant="solid" color="yellow" class="justify-self-center self-center w-fit h-fit cursor-pointer">
                 {{ $search->vrn }}
             </flux:badge>
         @endforeach
