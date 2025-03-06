@@ -1,7 +1,7 @@
 <form wire:submit="search">
     <flux:input.group class="p-2 mb-2">
         <div class="flex-1">
-            <flux:input type="text" id="vrn" wire:model="vrn" placeholder="SE45 RCH" />
+            <flux:input type="text" id="vrn" wire:model="vrn" placeholder="SE45RCH" />
             <p class="text-sm ml-2 mt-0.5 text-red-500">@error('vrn') {{ $message }} @enderror</p>
         </div>
 
