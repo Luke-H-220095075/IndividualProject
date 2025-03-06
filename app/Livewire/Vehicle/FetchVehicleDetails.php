@@ -8,8 +8,18 @@ use Livewire\Component;
 
 class FetchVehicleDetails extends Component
 {
-    public $colour = '';
+    public $taxStatus = '';
+    public $taxDueDate = '';
+    public $motStatus = '';
+    public $motExpiryDate = '';
     public $make = '';
+    public $yearOfManufacture = '';
+    public $engineCapacity = '';
+    public $co2Emissions = '';
+    public $fuelType = '';
+    public $colour = '';
+    public $typeApproval = '';
+    public $revenueWeight = '';
 
     #[On('searched')]
     public function fetch($vrn)
@@ -23,8 +33,18 @@ class FetchVehicleDetails extends Component
             $this->dispatch('valid');
         }
 
-        $this->colour = $response->json('colour') ?? 'Not Found';
+        $this->taxStatus = $response->json('taxStatus') ?? 'Not Found';
+        $this->taxDueDate = $response->json('taxDueDate') ?? 'Not Found';
+        $this->motStatus = $response->json('motStatus') ?? 'Not Found';
+        $this->motExpiryDate = $response->json('motExpiryDate') ?? 'Not Found';
         $this->make = $response->json('make') ?? 'Not Found';
+        $this->yearOfManufacture = $response->json('yearOfManufacture') ?? 'Not Found';
+        $this->engineCapacity = $response->json('engineCapacity') ?? 'Not Found';
+        $this->co2Emissions = $response->json('co2Emissions') ?? 'Not Found';
+        $this->fuelType = $response->json('fuelType') ?? 'Not Found';
+        $this->colour = $response->json('colour') ?? 'Not Found';
+        $this->typeApproval = $response->json('typeApproval') ?? 'Not Found';
+        $this->revenueWeight = $response->json('revenueWeight') ?? 'Not Found';
     }
 
     public function render()
