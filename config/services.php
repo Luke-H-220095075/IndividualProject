@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'ves' => [
+        'key' => env('VES_API_KEY'),
+    ]
+
 ];
