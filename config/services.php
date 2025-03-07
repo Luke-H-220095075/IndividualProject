@@ -37,6 +37,12 @@ return [
 
     'ves' => [
         'key' => env('VES_API_KEY'),
-    ]
+    ],
+
+    'mot' => [
+        'id' => env('MOT_CLIENT_ID'),
+        'secret' => env('MOT_CLIENT_SECRET'),
+        'key' => env('MOT_API_KEY'),
+    ],
 
 ];
