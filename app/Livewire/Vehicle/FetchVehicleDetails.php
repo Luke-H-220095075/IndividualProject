@@ -9,20 +9,20 @@ use Livewire\Component;
 
 class FetchVehicleDetails extends Component
 {
-    public $taxStatus = '';
-    public $taxDueDate = '';
-    public $motStatus = '';
-    public $motExpiryDate = '';
-    public $make = '';
-    public $yearOfManufacture = '';
-    public $engineCapacity = '';
-    public $co2Emissions = '';
-    public $fuelType = '';
-    public $colour = '';
-    public $typeApproval = '';
-    public $revenueWeight = '';
-    public $model = '';
-    public $hasOutstandingRecall = '';
+    public $taxStatus = '-';
+    public $taxDueDate = '-';
+    public $motStatus = '-';
+    public $motExpiryDate = '-';
+    public $make = '-';
+    public $yearOfManufacture = '-';
+    public $engineCapacity = '-';
+    public $co2Emissions = '-';
+    public $fuelType = '-';
+    public $colour = '-';
+    public $typeApproval = '-';
+    public $revenueWeight = '-';
+    public $model = '-';
+    public $hasOutstandingRecall = '-';
     public $motTests = [];
 
     #[On('searched')]
@@ -61,7 +61,6 @@ class FetchVehicleDetails extends Component
                     'scope' => 'https://tapi.dvsa.gov.uk/.default'
                 ]);
             $motToken = $motToken->json()['access_token'];
-            dd($motToken);
             Cache::put('motToken', $motToken, now()->addMinutes(60));
         }
 
@@ -69,8 +68,8 @@ class FetchVehicleDetails extends Component
             ->withHeader('X-API-Key', config('services.mot.key'))
             ->get("https://history.mot.api.gov.uk/v1/trade/vehicles/registration/$vrn");
 
-        $this->model = $motHistory->json('model');
-        $this->hasOutstandingRecall = $motHistory->json('hasOutstandingRecall');
+        $this->model = $motHistory->json('model') ?? 'Not Found';
+        $this->hasOutstandingRecall = $motHistory->json('hasOutstandingRecall') ?? 'Not Found';
         $this->motTests = $motHistory->json('motTests');
     }
 
