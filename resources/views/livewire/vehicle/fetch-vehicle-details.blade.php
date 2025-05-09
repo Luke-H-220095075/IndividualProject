@@ -5,7 +5,7 @@
         }
     </style>
 
-    <div class="grid grid-cols-3 mb-2">
+    <div class="grid grid-cols-3 my-2">
         <label for="make">Make</label>
         <label for="model">Model</label>
         <label for="colour">Colour</label>
@@ -49,9 +49,9 @@
         <p id="typeApproval">{{ $typeApproval }}</p>
     </div>
 
-    @if($motTests)
-        @foreach($motTests as $motTest)
-            <p>Test: {{ $motTest['testResult'] }}</p>
-        @endforeach
-    @endif
+{{--    @if($motTests)--}}
+{{--        @foreach($motTests as $motTest)--}}
+{{--            <p>Test: {{ $motTest['testResult'] }}</p>--}}
+{{--        @endforeach--}}
+{{--    @endif--}}
 </div>
