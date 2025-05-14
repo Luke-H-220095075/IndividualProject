@@ -13,6 +13,13 @@ class SearchVehicle extends Component
     #[Validate('required|filled', as: 'VRN')]
     public $vrn = '';
 
+    public $previousSearches = [];
+
+    public function mount()
+    {
+        $this->previousSearches = Auth::user()->searches()->limit(10)->get();
+    }
+
     public function search(): void
     {
         $this->validate();
