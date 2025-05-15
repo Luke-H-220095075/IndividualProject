@@ -15,7 +15,7 @@ class SearchVehicle extends Component
 
     public $previousSearches = [];
 
-    public function mount()
+    public function mount(): void
     {
         $this->previousSearches = Auth::user()->searches()->limit(10)->get();
     }
@@ -28,6 +28,7 @@ class SearchVehicle extends Component
         $this->vrn = str_replace(' ', '', $this->vrn);
 
         $this->dispatch('searched', $this->vrn);
+        $this->mount();
     }
 
     #[On('valid')]
