@@ -23,7 +23,6 @@ class FetchVehicleDetails extends Component
     public $revenueWeight = '-';
     public $model = '-';
     public $hasOutstandingRecall = '-';
-    public $motTests = [];
 
     #[On('searched')]
     public function fetch($vrn)
@@ -70,7 +69,8 @@ class FetchVehicleDetails extends Component
 
         $this->model = $motHistory->json('model') ?? 'Not Found';
         $this->hasOutstandingRecall = $motHistory->json('hasOutstandingRecall') ?? 'Not Found';
-        $this->motTests = $motHistory->json('motTests');
+
+        $this->dispatch('fetched', $motHistory->json('motTests'));
     }
 
     public function render()
