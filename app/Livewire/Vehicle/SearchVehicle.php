@@ -3,6 +3,7 @@
 namespace App\Livewire\Vehicle;
 
 use App\Models\Vehicle;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
@@ -12,13 +13,6 @@ class SearchVehicle extends Component
 {
     #[Validate('required|filled', as: 'VRN')]
     public $vrn = '';
-
-    public $previousSearches = [];
-
-    public function mount()
-    {
-        $this->previousSearches = Auth::user()->searches()->limit(10)->get();
-    }
 
     public function search(): void
     {
@@ -36,7 +30,7 @@ class SearchVehicle extends Component
         $vehicle = Vehicle::firstOrCreate(['vrn' => $this->vrn]);
 
         $user = Auth::user();
-        $user->searches()->syncWithoutDetaching([$vehicle->id]);
+        $user->searches()->syncWithoutDetaching([$vehicle->id => ['searched_at' => Carbon::now()]]);
     }
 
     public function usePrevious($vrn): void

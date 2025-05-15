@@ -9,7 +9,7 @@
         <flux:button type="submit" icon="magnifying-glass">Search VRN</flux:button>
     </flux:input.group>
     <div class="text-center w-full grid grid-cols-2 gap-y-3 overflow-hidden py-1">
-        @foreach($previousSearches as $search)
+        @foreach(Auth::user()->searches()->limit(10)->orderByDesc('searched_at')->get() as $search)
             <flux:badge wire:click="usePrevious('{{ $search->vrn }}')" variant="solid" color="yellow" class="justify-self-center self-center w-fit h-fit cursor-pointer">
                 {{ $search->vrn }}
             </flux:badge>
