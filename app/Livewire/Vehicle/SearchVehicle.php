@@ -3,6 +3,7 @@
 namespace App\Livewire\Vehicle;
 
 use App\Models\Vehicle;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
@@ -29,7 +30,7 @@ class SearchVehicle extends Component
         $vehicle = Vehicle::firstOrCreate(['vrn' => $this->vrn]);
 
         $user = Auth::user();
-        $user->searches()->syncWithoutDetaching([$vehicle->id]);
+        $user->searches()->syncWithoutDetaching([$vehicle->id => ['searched_at' => Carbon::now()]]);
     }
 
     public function usePrevious($vrn): void
