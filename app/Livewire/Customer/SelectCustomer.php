@@ -4,6 +4,7 @@ namespace App\Livewire\Customer;
 
 use App\Models\Customer;
 use Illuminate\View\View;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class SelectCustomer extends Component
@@ -32,8 +33,10 @@ class SelectCustomer extends Component
         $this->address = $customer->address ?? '';
 
         $this->fetchCustomerVehicles();
+        $this->dispatch('customerSelected', $this->customerId);
     }
 
+    #[On('vehicleAssigned')]
     public function fetchCustomerVehicles(): void
     {
         $customer = Customer::query()->where('id', $this->customerId)->first();

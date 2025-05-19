@@ -28,7 +28,7 @@
                             </flux:badge>
                         @endforeach
                     @else
-                        <p class="col-span-2 self-center">No vehicles found for this customer</p>
+                        <p class="col-span-2 self-center">No vehicles found</p>
                     @endif
                 </div>
             </div>
