@@ -3,6 +3,7 @@
 namespace App\Livewire\Customer;
 
 use App\Models\Customer;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class SelectCustomer extends Component
@@ -13,23 +14,33 @@ class SelectCustomer extends Component
     public $address = '';
     public $customers = [];
     public $customerId = null;
+    public $customerVehicles = [];
 
 
-    public function mount()
+    public function mount(): void
     {
         $this->customers = Customer::all();
+        $this->fetchCustomerVehicles();
     }
 
-    public function fillInputs()
+    public function fillInputs(): void
     {
         $customer = Customer::query()->find($this->customerId);
         $this->name = $customer->name ?? '';
         $this->phone = $customer->phone ?? '';
         $this->email = $customer->email ?? '';
         $this->address = $customer->address ?? '';
+
+        $this->fetchCustomerVehicles();
     }
 
-    public function saveCustomer()
+    public function fetchCustomerVehicles(): void
+    {
+        $customer = Customer::query()->where('id', $this->customerId)->first();
+        $this->customerVehicles = $customer->vehicles ?? [];
+    }
+
+    public function saveCustomer(): void
     {
         $customer = Customer::query()->updateOrCreate(['id' => $this->customerId], [
             'name' => $this->name,
@@ -42,7 +53,7 @@ class SelectCustomer extends Component
         $this->customerId = $customer->id;
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.customer.select-customer');
     }
