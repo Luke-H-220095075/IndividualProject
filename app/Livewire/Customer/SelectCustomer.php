@@ -3,6 +3,7 @@
 namespace App\Livewire\Customer;
 
 use App\Models\Customer;
+use App\Models\Vehicle;
 use Illuminate\View\View;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -41,6 +42,14 @@ class SelectCustomer extends Component
     {
         $customer = Customer::query()->where('id', $this->customerId)->first();
         $this->customerVehicles = $customer->vehicles ?? [];
+    }
+
+    public function unassignVehicle($vehicleId): void
+    {
+        Vehicle::query()->where('id', $vehicleId)->update(['customer_id' => null]);
+
+        $this->fetchCustomerVehicles();
+        $this->dispatch('vehicleUnassigned');
     }
 
     public function saveCustomer(): void

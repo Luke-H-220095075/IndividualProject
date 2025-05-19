@@ -23,7 +23,7 @@
                 <div class="text-center w-full h-30 grid grid-cols-2 gap-y-3 overflow-scroll py-2">
                     @if(filled($customerVehicles))
                         @foreach($customerVehicles as $vehicle)
-                            <flux:badge variant="solid" color="yellow" class="justify-self-center self-center w-fit h-fit cursor-pointer">
+                            <flux:badge wire:click="unassignVehicle({{ $vehicle->id }})" variant="solid" color="yellow" class="justify-self-center self-center w-fit h-fit cursor-pointer">
                                 {{ $vehicle->vrn }}
                             </flux:badge>
                         @endforeach

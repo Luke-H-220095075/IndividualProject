@@ -18,6 +18,7 @@ class UnassignedVehicles extends Component
         $this->fetchVehicles();
     }
 
+    #[On('vehicleUnassigned')]
     public function fetchVehicles(): void
     {
         $this->vehicles = Vehicle::query()->where('customer_id', null)->get();
@@ -34,8 +35,8 @@ class UnassignedVehicles extends Component
         if ($this->customerId != null) {
             $customer = Customer::query()->find($this->customerId);
             $vehicle = Vehicle::query()->find($vehicleId);
-
             $customer->vehicles()->save($vehicle);
+
             $this->fetchVehicles();
             $this->dispatch('vehicleAssigned');
         }
