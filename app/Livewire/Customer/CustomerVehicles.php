@@ -3,18 +3,24 @@
 namespace App\Livewire\Customer;
 
 use App\Models\Vehicle;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class CustomerVehicles extends Component
 {
-    public $vehicles = [];
+    public $unassignedVehicles = [];
 
-    public function mount()
+    public function mount(): void
     {
-        $this->vehicles = Vehicle::all();
+        $this->fetchUnassignedVehicles();
     }
 
-    public function render()
+    public function fetchUnassignedVehicles(): void
+    {
+        $this->unassignedVehicles = Vehicle::query()->where('customer_id', null)->get();
+    }
+
+    public function render(): View
     {
         return view('livewire.customer.customer-vehicles');
     }
