@@ -1,6 +1,6 @@
 <form wire:submit="saveCustomer" class="p-2">
     <flux:label class="pl-1 pb-2" for="selectCustomer">Select Customer</flux:label>
-    <flux:select id="selectCustomer" wire:model="customerId" wire:change="fillInputs">
+    <flux:select id="selectCustomer" wire:model="customerId" wire:key="customer-{{ $customerId }}" wire:change="fillInputs">
         <flux:select.option value="{{ null }}">Add New Customer</flux:select.option>
         @foreach($customers as $customer)
             <flux:select.option value="{{ $customer->id }}">{{ $customer->name }}</flux:select.option>
