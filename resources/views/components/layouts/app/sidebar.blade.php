@@ -14,6 +14,7 @@
             <flux:navlist variant="outline">
                 <flux:navlist.group heading="Platform" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')">Vehicle Details</flux:navlist.item>
+                    <flux:navlist.item icon="home" :href="route('invoicing')" :current="request()->routeIs('invoicing')">Invoicing</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
