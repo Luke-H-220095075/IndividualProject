@@ -15,6 +15,10 @@ Route::view('customer', 'customer')
     ->middleware(['auth', 'verified'])
     ->name('customer');
 
+Route::view('invoice', 'invoice')
+    ->middleware(['auth', 'verified'])
+    ->name('invoice');
+
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
