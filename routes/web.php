@@ -11,9 +11,9 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-Route::view('invoicing', 'invoicing')
+Route::view('customer', 'customer')
     ->middleware(['auth', 'verified'])
-    ->name('invoicing');
+    ->name('customer');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
