@@ -1,4 +1,4 @@
-<form wire:submit="createInvoice" class="p-2">
+<form wire:submit="createBooking" class="p-2">
     <div class="grid grid-cols-6 gap-2">
         <flux:select wire:model="type" label="Type" placeholder="Select a type">
             <flux:select.option>MOT</flux:select.option>
