@@ -17,8 +17,8 @@ class Vehicle extends Model
         return $this->belongsTo(Customer::class);
     }
 
-    public function invoices(): HasMany
+    public function bookings(): HasMany
     {
-        return $this->hasMany(Invoice::class);
+        return $this->hasMany(Booking::class);
     }
 }

@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('type');
             $table->string('description');
             $table->float('amount');
-            $table->integer('customer_id');
-            $table->integer('vehicle_id');
+            $table->integer('customer_id')->nullable();
+            $table->integer('vehicle_id')->nullable();
             $table->timestamps();
         });
     }

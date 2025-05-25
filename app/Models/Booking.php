@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Invoice extends Model
+class Booking extends Model
 {
-    protected $table = 'invoices';
+    protected $table = 'bookings';
 
     protected $fillable = [
         'type',
