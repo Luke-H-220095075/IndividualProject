@@ -15,7 +15,7 @@
                 <flux:navlist.group heading="Platform" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')">Vehicle Details</flux:navlist.item>
                     <flux:navlist.item icon="users" :href="route('customer')" :current="request()->routeIs('customer')">Customers</flux:navlist.item>
-                    <flux:navlist.item icon="home" :href="route('booking')" :current="request()->routeIs('booking')">Bookings</flux:navlist.item>
+                    <flux:navlist.item icon="book-open" :href="route('booking')" :current="request()->routeIs('booking')">Bookings</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
