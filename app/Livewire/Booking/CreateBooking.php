@@ -73,6 +73,7 @@ class CreateBooking extends Component
 
         $booking->save();
         $this->reset();
+        $this->dispatch('bookingCreated');
     }
 
     public function render(): View
