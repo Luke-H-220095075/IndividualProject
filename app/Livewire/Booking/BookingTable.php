@@ -21,6 +21,13 @@ class BookingTable extends Component
         $this->bookings = Booking::query()->orderBy('date')->orderBy('time')->get();
     }
 
+    public function deleteBooking($id): void
+    {
+        Booking::query()->where('id', $id)->delete();
+
+        $this->fetchBookings();
+    }
+
     public function render()
     {
         return view('livewire.booking.booking-table');

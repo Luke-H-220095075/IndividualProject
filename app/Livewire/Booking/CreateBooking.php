@@ -72,7 +72,8 @@ class CreateBooking extends Component
         $booking->vehicle()->associate($vehicle);
 
         $booking->save();
-        $this->reset();
+        $this->resetExcept('customers');
+        $this->fetchVehicles();
         $this->dispatch('bookingCreated');
     }
 
