@@ -1,6 +1,7 @@
 <form wire:submit="createBooking" class="p-2">
-    <div class="grid grid-cols-6 gap-2">
-        <flux:select wire:model="type" label="Type" placeholder="Select a type">
+    <div class="grid grid-cols-7 gap-2">
+        <flux:select wire:model="type" label="Type">
+            <flux:select.option value="{{ null }}"></flux:select.option>
             <flux:select.option>MOT</flux:select.option>
             <flux:select.option>Service</flux:select.option>
             <flux:select.option>Repair</flux:select.option>
@@ -10,10 +11,12 @@
             <flux:textarea wire:model="description" type="text" label="Description" rows="2"/>
         </div>
 
-        <flux:input wire:model="amount" type="float" label="Amount"></flux:input>
+        <flux:input wire:model="date" type="date" label="Date" min="{{ \Carbon\Carbon::now()->toDateString() }}"></flux:input>
+
+        <flux:input wire:model="time" type="time" label="Time"></flux:input>
 
         <flux:select id="selectCustomer" wire:model="customerId" wire:change="fetchVehicles" label="Customer">
-            <flux:select.option value="{{ null }}">Walk In Customer</flux:select.option>
+            <flux:select.option value="{{ null }}"></flux:select.option>
             @foreach($customers as $customer)
                 <flux:select.option value="{{ $customer->id }}">{{ $customer->name }}</flux:select.option>
             @endforeach

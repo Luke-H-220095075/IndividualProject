@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('type');
             $table->string('description');
-            $table->float('amount');
+            $table->date('date');
+            $table->time('time');
             $table->integer('customer_id')->nullable();
             $table->integer('vehicle_id')->nullable();
             $table->timestamps();

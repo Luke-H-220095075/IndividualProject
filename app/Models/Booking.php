@@ -12,7 +12,8 @@ class Booking extends Model
     protected $fillable = [
         'type',
         'description',
-        'amount',
+        'date',
+        'time',
     ];
 
     public function customer(): BelongsTo

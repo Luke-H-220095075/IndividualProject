@@ -14,7 +14,8 @@ class CreateBooking extends Component
     public $vehicles = [];
     public $type = '';
     public $description = '';
-    public $amount = '';
+    public $date = '';
+    public $time = '';
     public $customerId = null;
     public $vehicleId = null;
 
@@ -26,7 +27,8 @@ class CreateBooking extends Component
 
     public function fetchVehicles(): void
     {
-        $this->vehicles = Vehicle::query()->where('customer_id', $this->customerId)->get();
+        $this->vehicles = Vehicle::query()
+            ->where('customer_id', empty($this->customerId) ? null : $this->customerId)->get();
     }
 
     public function createBooking(): void
@@ -34,7 +36,8 @@ class CreateBooking extends Component
         $booking = Booking::query()->create([
             'type' => $this->type,
             'description' => $this->description,
-            'amount' => $this->amount,
+            'date' => $this->date,
+            'time' => $this->time,
         ]);
 
         $customer = Customer::query()->find($this->customerId);
