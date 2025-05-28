@@ -32,6 +32,10 @@ class CreateBooking extends Component
     {
         $this->vehicles = Vehicle::query()
             ->where('customer_id', empty($this->customerId) ? null : $this->customerId)->get();
+
+        if ($this->vehicles->isEmpty()) {
+            $this->vehicles = Vehicle::query()->whereNull('customer_id')->get();
+        }
     }
 
     public function fetchTimes(): void
@@ -60,9 +64,15 @@ class CreateBooking extends Component
         $customer = Customer::query()->find($this->customerId);
         $vehicle = Vehicle::query()->find($this->vehicleId);
 
+        if ($customer) {
+            $customer->vehicles()->save($vehicle);
+        }
+
         $booking->customer()->associate($customer);
         $booking->vehicle()->associate($vehicle);
+
         $booking->save();
+        $this->reset();
     }
 
     public function render(): View
