@@ -45,7 +45,7 @@ class CreateBooking extends Component
         $takenTimes[] = ['12:30', '13:29'];
 
         $times = HoursHelper::create('08:30', '17:00', 60, 'H:i', $takenTimes);
-        $this->times = $times;
+        $this->times = $times->toArray();
     }
 
     public function createBooking(): void

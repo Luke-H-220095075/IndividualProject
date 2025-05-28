@@ -14,7 +14,7 @@
         <flux:input wire:model="date" wire:change="fetchTimes" type="date" label="Date" description="Required"
                     min="{{ \Carbon\Carbon::now()->toDateString() }}"></flux:input>
 
-        <flux:select :disabled="empty($times)" wire:model="time" label="Time" description="Required">
+        <flux:select :disabled="$times == []" wire:model="time" label="Time" description="Required">
             <flux:select.option value="{{ null }}"></flux:select.option>
             @foreach($times as $time)
                 <flux:select.option>{{ $time }}</flux:select.option>
