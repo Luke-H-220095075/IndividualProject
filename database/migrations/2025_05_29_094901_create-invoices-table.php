@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->integer('booking_id');
+            $table->integer('booking_id')->nullable();
             $table->timestamps();
         });
     }
