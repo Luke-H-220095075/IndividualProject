@@ -14,7 +14,7 @@ class CreateInvoice extends Component
 
     public function mount(): void
     {
-        $this->bookings = Booking::query()
+        $this->bookings = Booking::query()->where('invoice_id', null)
             ->orderBy('date')->orderBy('time')->get();
     }
 
