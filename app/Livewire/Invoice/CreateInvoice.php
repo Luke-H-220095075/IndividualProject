@@ -21,6 +21,8 @@ class CreateInvoice extends Component
     public function fetchBooking(): void
     {
         $this->booking = Booking::query()->find($this->bookingId);
+
+        $this->dispatch('bookingFetched', $this->bookingId);
     }
 
     public function createInvoice(): void

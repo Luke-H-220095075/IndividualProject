@@ -2,7 +2,9 @@
 
 namespace App\Livewire\Invoice;
 
+use App\Models\Booking;
 use App\Models\Part;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class SelectParts extends Component
@@ -11,9 +13,20 @@ class SelectParts extends Component
     public $partId = '';
     public $selectedParts = [];
 
-    public function mount(): void
+    #[On('bookingFetched')]
+    public function fetchParts($id): void
     {
-        $this->parts = Part::all();
+        $booking = Booking::query()->find($id);
+        $vehicleData = json_decode($booking->vehicle->api_data);
+
+        $this->parts = Part::query()->where('make', $vehicleData->make)
+            ->where('model', $vehicleData->model)
+            ->where('fuelType', $vehicleData->fuelType)
+            ->get();
+
+        if ($this->parts->count() == 0) {
+            $this->parts = [];
+        }
     }
 
     public function addPart(): void
@@ -21,6 +34,8 @@ class SelectParts extends Component
         $part = Part::query()->find($this->partId);
 
         $this->selectedParts[] = $part;
+
+        $this->parts = Part::query()->whereNot('id', $this->partId)->get();
     }
 
     public function render()

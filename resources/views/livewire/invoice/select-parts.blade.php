@@ -5,7 +5,7 @@
         }
     </style>
 
-    <flux:select wire:model="partId" wire:change="addPart" label="Part">
+    <flux:select wire:model="partId" wire:change="addPart" :disabled="$parts == []" label="Part">
         <flux:select.option value="{{ null }}"></flux:select.option>
         @foreach($parts as $part)
             <flux:select.option value="{{ $part->id }}">{{ $part->type }}</flux:select.option>
