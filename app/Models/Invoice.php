@@ -11,4 +11,8 @@ class Invoice extends Model
     protected $fillable = [
         'title',
     ];
+
+    public function booking() {
+        return $this->hasOne(Booking::class);
+    }
 }
