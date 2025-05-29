@@ -10,6 +10,7 @@ class Invoice extends Model
 
     protected $fillable = [
         'title',
+        'parts',
     ];
 
     public function booking() {

@@ -20,17 +20,22 @@
     <div class="grid grid-cols-2 text-sm text-center">
         <div class="col-span-2">
             <label for="description">Description</label>
-            <p id="description">{{ $booking->description }}</p>
+            <p id="description">{{ $selectedBooking->description ?? '-' }}</p>
         </div>
 
         <div>
             <label for="customer">Customer</label>
-            <p id="customer">{{ $booking->customer->name }}</p>
+            <p id="customer">{{ $selectedBooking->customer->name ?? '-' }}</p>
         </div>
 
         <div>
             <label for="timeslot">Timeslot</label>
-            <p id="timeslot">{{ $booking->date. ' - ' .Carbon::parse($booking->time)->format('H:i') }}</p>
+            <p id="timeslot">
+                {{ filled($selectedBooking)
+                    ? $selectedBooking->date. ' - ' .Carbon::parse($selectedBooking->time)->format('H:i')
+                    : '-'
+                }}
+            </p>
         </div>
     </div>
 

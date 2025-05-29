@@ -10,7 +10,7 @@ class CreateInvoice extends Component
 {
     public $bookings = [];
     public $bookingId = '';
-    public $booking = null;
+    public $selectedBooking = null;
 
     public function mount(): void
     {
@@ -20,7 +20,7 @@ class CreateInvoice extends Component
 
     public function fetchBooking(): void
     {
-        $this->booking = Booking::query()->find($this->bookingId);
+        $this->selectedBooking = Booking::query()->find($this->bookingId);
 
         $this->dispatch('bookingFetched', $this->bookingId);
     }
@@ -28,10 +28,12 @@ class CreateInvoice extends Component
     public function createInvoice(): void
     {
         $invoice = Invoice::query()->create([
-            'title' => $this->booking->type. ' - ' .$this->booking->vehicle->vrn,
+            'title' => $this->selectedBooking->type. ' - ' .$this->selectedBooking->vehicle->vrn,
         ]);
 
-        $invoice->booking()->save($this->booking);
+        $invoice->booking()->save($this->selectedBooking);
+
+        $this->dispatch('bookingCreated', $invoice->id);
     }
 
     public function render()

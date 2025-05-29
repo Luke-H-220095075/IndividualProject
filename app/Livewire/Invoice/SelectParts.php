@@ -3,6 +3,7 @@
 namespace App\Livewire\Invoice;
 
 use App\Models\Booking;
+use App\Models\Invoice;
 use App\Models\Part;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -23,10 +24,6 @@ class SelectParts extends Component
             ->where('model', $vehicleData->model)
             ->where('fuelType', $vehicleData->fuelType)
             ->get();
-
-        if ($this->parts->count() == 0) {
-            $this->parts = [];
-        }
     }
 
     public function addPart(): void
@@ -36,6 +33,16 @@ class SelectParts extends Component
         $this->selectedParts[] = $part;
 
         $this->parts = Part::query()->whereNot('id', $this->partId)->get();
+
+        if ($this->parts->count() == 0) {
+            $this->parts = [];
+        }
+    }
+
+    #[On('bookingCreated')]
+    public function saveParts($id): void
+    {
+        Invoice::query()->find($id)->update(['parts' => json_encode($this->selectedParts)]);
     }
 
     public function render()
