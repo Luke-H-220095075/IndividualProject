@@ -2,8 +2,10 @@
 
 namespace App\Livewire\Vehicle;
 
+use App\Models\Vehicle;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Illuminate\View\View;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -25,7 +27,7 @@ class FetchVehicleDetails extends Component
     public $hasOutstandingRecall = '-';
 
     #[On('searched')]
-    public function fetch($vrn)
+    public function fetch($vrn): void
     {
         $vehicleData = Http::withHeaders(['x-api-key' => config('services.ves.key')])
             ->post('https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles', [
@@ -71,9 +73,19 @@ class FetchVehicleDetails extends Component
         $this->hasOutstandingRecall = $motHistory->json('hasOutstandingRecall') ?? 'Not Found';
 
         $this->dispatch('fetched', $motHistory->json('motTests'));
+        $this->storeApiData($vrn);
     }
 
-    public function render()
+    public function storeApiData($vrn): void
+    {
+        $apiData = json_encode(
+            $this->only('make', 'model', 'fuelType', 'yearOfManufacture', 'engineCapacity'));
+
+        Vehicle::query()->where('vrn', $vrn)
+            ->update(['api_data' => $apiData]);
+    }
+
+    public function render(): View
     {
         return view('livewire.vehicle.fetch-vehicle-details');
     }
