@@ -37,6 +37,13 @@ class SelectParts extends Component
         if ($this->parts->count() == 0) {
             $this->parts = [];
         }
+
+        $this->sendPartPrices($part->price);
+    }
+
+    public function sendPartPrices($price): void
+    {
+        $this->dispatch('priceSent', $price);
     }
 
     #[On('bookingCreated')]
