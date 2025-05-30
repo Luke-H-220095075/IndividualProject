@@ -11,5 +11,8 @@ class Part extends Model
     protected $fillable = [
         'type',
         'price',
+        'make',
+        'model',
+        'fuelType'
     ];
 }
