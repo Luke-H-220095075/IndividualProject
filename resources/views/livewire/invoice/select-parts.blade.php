@@ -1,18 +1,20 @@
-<div class="p-2">
+<div class="p-2 h-56 overflow-scroll">
     <style>
         label {
             font-weight: bold;
         }
     </style>
 
-    <div class="grid h-42 overflow-scroll grid-cols-2 text-center gap-2 text-sm">
+    <div class="grid grid-cols-3 text-center gap-2 text-sm">
         <label>Part</label>
         <label>Price</label>
+        <label></label>
 
-        <flux:checkbox.group class="col-span-2 grid grid-cols-2" wire:model="selectedParts" wire:change="sendParts">
+        <flux:checkbox.group class="col-span-3 grid grid-cols-3" wire:model="selectedParts" wire:change="sendParts">
             @foreach($parts as $part)
-                <flux:checkbox class="ml-12" value="{{ $part->id }}" label="{{ $part->type }}"></flux:checkbox>
+                <flux:checkbox value="{{ $part->id }}" label="{{ $part->type }}"></flux:checkbox>
                 <p>£{{ number_format($part->price, 2) }}</p>
+                <p wire:click="deletePart({{ $part->id }})" class="text-red-500 cursor-pointer">Delete</p>
             @endforeach
         </flux:checkbox.group>
     </div>

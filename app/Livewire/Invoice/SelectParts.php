@@ -59,6 +59,13 @@ class SelectParts extends Component
         Flux::modal('addNewPart')->close();
     }
 
+    public function deletePart($id): void
+    {
+        Part::query()->find($id)->delete();
+
+        $this->fetchParts($this->bookingId);
+    }
+
     public function sendParts(): void
     {
         $this->dispatch('partsSent', $this->selectedParts);
