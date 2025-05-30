@@ -5,7 +5,7 @@
         }
     </style>
 
-    <div class="grid grid-cols-2 text-center gap-2 text-sm">
+    <div class="grid h-42 overflow-scroll grid-cols-2 text-center gap-2 text-sm">
         <label>Part</label>
         <label>Price</label>
 
