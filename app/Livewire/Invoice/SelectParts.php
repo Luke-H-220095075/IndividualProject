@@ -34,7 +34,11 @@ class SelectParts extends Component
     #[On('invoiceCreated')]
     public function saveParts($id): void
     {
-        Invoice::query()->find($id)->update(['parts' => json_encode($this->selectedParts)]);
+        $parts = Part::query()->whereIn('id', $this->selectedParts)->get();
+
+        Invoice::query()->find($id)->update(['parts' => json_encode($parts)]);
+
+        $this->reset();
     }
 
     public function render()

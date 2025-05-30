@@ -34,6 +34,8 @@ class PriceSummary extends Component
     public function saveTotal($id): void
     {
         Invoice::query()->find($id)->update(['total' => $this->totalCost]);
+
+        $this->reset();
     }
 
     public function render()

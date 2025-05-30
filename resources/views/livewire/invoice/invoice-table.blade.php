@@ -6,8 +6,10 @@
         }
     </style>
 
-    <div class="grid grid-cols-3 gap-y-2 my-2 items-center">
+    <div class="grid grid-cols-5 gap-y-2 my-2 items-center">
         <label for="title">Title</label>
+        <label for="parts">Parts</label>
+        <label for="labour">Labour</label>
         <label for="total">Total</label>
         <label></label>
 
@@ -15,8 +17,20 @@
 
         @if($invoices)
             @foreach($invoices as $invoice)
+                @php($labourCost = $invoice->total)
                 <p id="title">{{ $invoice->title }}</p>
-                <p id="total">{{ number_format($invoice->total, 2) }}</p>
+
+                <div>
+                    @foreach(json_decode($invoice->parts) as $part)
+                        @php($labourCost -= $part->price)
+                        <p id="parts">{{ $part->type. ' - £' .$part->price }}</p>
+                    @endforeach
+                </div>
+
+                <p id="labour">£{{ number_format($labourCost, 2) }}</p>
+
+                <p id="total">£{{ number_format($invoice->total, 2) }}</p>
+
                 <p wire:click="deleteInvoice({{ $invoice->id }})" class="text-red-500 cursor-pointer">Delete</p>
 
                 @if(!$loop->last)

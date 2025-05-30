@@ -4,6 +4,7 @@ namespace App\Livewire\Invoice;
 
 use App\Models\Booking;
 use App\Models\Invoice;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class CreateInvoice extends Component
@@ -12,6 +13,7 @@ class CreateInvoice extends Component
     public $bookingId = '';
     public $selectedBooking = null;
 
+    #[On('invoiceDeleted')]
     public function mount(): void
     {
         $this->bookings = Booking::query()->where('invoice_id', null)
@@ -34,6 +36,7 @@ class CreateInvoice extends Component
         $invoice->booking()->save($this->selectedBooking);
 
         $this->dispatch('invoiceCreated', $invoice->id);
+        $this->reset();
     }
 
     public function render()

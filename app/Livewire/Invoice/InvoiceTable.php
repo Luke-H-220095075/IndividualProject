@@ -8,7 +8,7 @@ use Livewire\Component;
 
 class InvoiceTable extends Component
 {
-    public $invoices;
+    public $invoices = [];
 
     public function mount(): void
     {
@@ -29,6 +29,7 @@ class InvoiceTable extends Component
         $invoice->delete();
 
         $this->fetchInvoices();
+        $this->dispatch('invoiceDeleted');
     }
 
     public function render()
