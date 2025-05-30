@@ -24,7 +24,7 @@
                 <div>
                     @foreach(json_decode($invoice->parts) as $part)
                         @php($labourCost -= $part->price)
-                        <p id="parts">{{ $part->type. ' - £' .$part->price }}</p>
+                        <p id="parts">{{ $part->type. ' - £' .number_format($part->price, 2) }}</p>
                     @endforeach
                 </div>
 
