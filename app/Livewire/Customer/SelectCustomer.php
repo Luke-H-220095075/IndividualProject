@@ -18,7 +18,6 @@ class SelectCustomer extends Component
     public $customerId = null;
     public $customerVehicles = [];
 
-
     public function mount(): void
     {
         $this->customers = Customer::all();
@@ -63,6 +62,15 @@ class SelectCustomer extends Component
 
         $this->mount();
         $this->customerId = $customer->id;
+        $this->dispatch('customerSelected', $this->customerId);
+        $this->dispatch('customerCreated');
+    }
+
+    #[On('customerDeleted')]
+    public function customerDeleted(): void
+    {
+        $this->reset();
+        $this->mount();
     }
 
     public function render(): View

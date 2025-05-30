@@ -21,8 +21,11 @@
                 <p id="description">{{ $customer->phone ?? '-' }}</p>
                 <p id="date">{{ $customer->email ?? '-' }}</p>
                 <p id="time">{{ $customer->address ?? '-' }}</p>
-                <p wire:click="deleteCustomer({{ $customer->id }})" class="text-red-500 cursor-pointer">Delete</p>
-
+                @if($customer->bookings()->count() == 0)
+                    <p wire:click="deleteCustomer({{ $customer->id }})" class="text-red-500 cursor-pointer">Delete</p>
+                @else
+                    <p>Not Deletable</p>
+                @endif
                 @if(!$loop->last)
                     <hr class="col-span-full mx-8 border-gray-500">
                 @endif
