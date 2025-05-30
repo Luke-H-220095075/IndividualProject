@@ -8,6 +8,7 @@ use App\Models\Vehicle;
 use Carbon\Carbon;
 use Illuminate\View\View;
 use Label84\HoursHelper\Facades\HoursHelper;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class CreateBooking extends Component
@@ -15,11 +16,15 @@ class CreateBooking extends Component
     public $customers = [];
     public $vehicles = [];
     public $times = [];
+    #[Validate('required')]
     public $type = '';
     public $description = '';
+    #[Validate('required')]
     public $date = '';
+    #[Validate('required')]
     public $time = '';
     public $customerId = null;
+    #[Validate('required')]
     public $vehicleId = null;
 
     public function mount(): void
@@ -54,6 +59,8 @@ class CreateBooking extends Component
 
     public function createBooking(): void
     {
+        $this->validate();
+
         $booking = Booking::query()->create([
             'type' => $this->type,
             'description' => $this->description,

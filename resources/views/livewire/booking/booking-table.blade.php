@@ -24,8 +24,11 @@
                 <p id="time">{{ Carbon::parse($booking->time)->format('H:i') }}</p>
                 <p id="customer">{{ filled($booking->customer?->name) ? $booking->customer?->name : '-' }}</p>
                 <p id="vehicle">{{ $booking->vehicle->vrn }}</p>
-                <p wire:click="deleteBooking({{ $booking->id }})" class="text-red-500 cursor-pointer">Delete</p>
-
+                @if($booking->invoice()->count() == 0)
+                    <p wire:click="deleteBooking({{ $booking->id }})" class="text-red-500 cursor-pointer">Delete</p>
+                @else
+                    <p>Not Deletable</p>
+                @endif
                 @if(!$loop->last)
                     <hr class="col-span-full mx-8 border-gray-500">
                 @endif
