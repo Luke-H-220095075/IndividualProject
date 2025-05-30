@@ -6,10 +6,12 @@ use App\Models\Customer;
 use App\Models\Vehicle;
 use Illuminate\View\View;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class SelectCustomer extends Component
 {
+    #[Validate('required')]
     public $name = '';
     public $phone = '';
     public $email = '';
@@ -17,7 +19,6 @@ class SelectCustomer extends Component
     public $customers = [];
     public $customerId = null;
     public $customerVehicles = [];
-
 
     public function mount(): void
     {
@@ -54,6 +55,8 @@ class SelectCustomer extends Component
 
     public function saveCustomer(): void
     {
+        $this->validate();
+
         $customer = Customer::query()->updateOrCreate(['id' => $this->customerId], [
             'name' => $this->name,
             'phone' => $this->phone,
@@ -63,6 +66,15 @@ class SelectCustomer extends Component
 
         $this->mount();
         $this->customerId = $customer->id;
+        $this->dispatch('customerSelected', $this->customerId);
+        $this->dispatch('customerCreated');
+    }
+
+    #[On('customerDeleted')]
+    public function customerDeleted(): void
+    {
+        $this->reset();
+        $this->mount();
     }
 
     public function render(): View

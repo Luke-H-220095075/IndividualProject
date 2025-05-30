@@ -42,6 +42,13 @@ class UnassignedVehicles extends Component
         }
     }
 
+    #[On('customerDeleted')]
+    public function customerDeleted(): void
+    {
+        $this->reset();
+        $this->mount();
+    }
+
     public function render(): View
     {
         return view('livewire.customer.unassigned-vehicles');
