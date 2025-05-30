@@ -16,18 +16,15 @@
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')">Vehicle Details</flux:navlist.item>
                     <flux:navlist.item icon="users" :href="route('customer')" :current="request()->routeIs('customer')">Customers</flux:navlist.item>
                     <flux:navlist.item icon="book-open" :href="route('booking')" :current="request()->routeIs('booking')">Bookings</flux:navlist.item>
+                    <flux:navlist.item icon="banknotes" :href="route('invoicing')" :current="request()->routeIs('invoicing')">Invoicing</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
             <flux:spacer />
 
             <flux:navlist variant="outline">
-                <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
+                <flux:navlist.item icon="folder-git-2" href="https://github.com/Luke-H-220095075/IndividualProject" target="_blank">
                     Repository
-                </flux:navlist.item>
-
-                <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits" target="_blank">
-                    Documentation
                 </flux:navlist.item>
             </flux:navlist>
 

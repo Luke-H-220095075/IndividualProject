@@ -19,6 +19,10 @@ Route::view('booking', 'booking')
     ->middleware(['auth', 'verified'])
     ->name('booking');
 
+Route::view('invoicing', 'invoicing')
+    ->middleware(['auth', 'verified'])
+    ->name('invoicing');
+
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
