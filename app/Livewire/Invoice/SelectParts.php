@@ -30,13 +30,20 @@ class SelectParts extends Component
     {
         $part = Part::query()->find($this->partId);
 
-        $this->selectedParts[] = $part;
+        if ($part !== null) {
+            $this->selectedParts[] = $part;
 
-        $this->parts = Part::query()->whereNot('id', $this->partId)->get();
 
-        if ($this->parts->count() == 0) {
-            $this->parts = [];
+
+            $this->sendPartPrices($part->price);
         }
+    }
+
+    public function removePart($id):void
+    {
+        $part = Part::query()->find($id);
+
+        $this->selectedParts = array_diff($this->selectedParts, [$part]);
 
         $this->sendPartPrices($part->price);
     }

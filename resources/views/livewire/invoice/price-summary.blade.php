@@ -16,7 +16,7 @@
         <flux:input wire:model="labourCost" wire:change="calculateTotal"></flux:input>
 
         <p>Part Costs</p>
-        <p>{{ $partsCost }}</p>
+        <p>{{ number_format($partsCost, 2) }}</p>
 
         <flux:separator class="col-span-full"></flux:separator>
 

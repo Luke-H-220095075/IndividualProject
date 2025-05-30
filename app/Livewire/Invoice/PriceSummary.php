@@ -7,8 +7,8 @@ use Livewire\Component;
 
 class PriceSummary extends Component
 {
-    public $labourCost = '';
-    public $partsCost = '';
+    public $labourCost = 0;
+    public $partsCost = 0;
     public $totalCost = 0;
 
     #[On('priceSent')]

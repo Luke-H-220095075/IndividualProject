@@ -14,17 +14,19 @@
 
     <flux:separator class="my-2"></flux:separator>
 
-    <div class="grid grid-cols-2 text-sm text-center">
+    <div class="grid grid-cols-3 text-sm text-center">
         <label for="type">Type</label>
         <label for="price">Price</label>
+        <label></label>
 
         @if($selectedParts)
             @foreach($selectedParts as $part)
                 <p id="type">{{ $part->type }}</p>
                 <p id="price">{{ $part->price }}</p>
+                <p class="text-red-500" wire:click="removePart({{ $part->id }})">Remove</p>
             @endforeach
         @else
-            <p class="col-span-2">No parts selected</p>
+            <p class="col-span-3">No parts selected</p>
         @endif
 
     </div>
