@@ -33,7 +33,7 @@ class CreateInvoice extends Component
 
         $invoice->booking()->save($this->selectedBooking);
 
-        $this->dispatch('bookingCreated', $invoice->id);
+        $this->dispatch('invoiceCreated', $invoice->id);
     }
 
     public function render()

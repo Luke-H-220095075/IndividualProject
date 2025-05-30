@@ -5,29 +5,15 @@
         }
     </style>
 
-    <flux:select wire:model="partId" wire:change="addPart" :disabled="$parts == []" label="Part">
-        <flux:select.option value="{{ null }}"></flux:select.option>
-        @foreach($parts as $part)
-            <flux:select.option value="{{ $part->id }}">{{ $part->type }}</flux:select.option>
-        @endforeach
-    </flux:select>
+    <div class="grid grid-cols-2 text-center gap-2 text-sm">
+        <label>Part</label>
+        <label>Price</label>
 
-    <flux:separator class="my-2"></flux:separator>
-
-    <div class="grid grid-cols-3 text-sm text-center">
-        <label for="type">Type</label>
-        <label for="price">Price</label>
-        <label></label>
-
-        @if($selectedParts)
-            @foreach($selectedParts as $part)
-                <p id="type">{{ $part->type }}</p>
-                <p id="price">{{ $part->price }}</p>
-                <p class="text-red-500" wire:click="removePart({{ $part->id }})">Remove</p>
+        <flux:checkbox.group class="col-span-2 grid grid-cols-2" wire:model="selectedParts" wire:change="sendParts">
+            @foreach($parts as $part)
+                <flux:checkbox class="ml-12" value="{{ $part->id }}" label="{{ $part->type }}"></flux:checkbox>
+                <p>{{ $part->price }}</p>
             @endforeach
-        @else
-            <p class="col-span-3">No parts selected</p>
-        @endif
-
+        </flux:checkbox.group>
     </div>
 </div>

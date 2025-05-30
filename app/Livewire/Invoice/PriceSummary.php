@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Invoice;
 
+use App\Models\Invoice;
+use App\Models\Part;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -11,24 +13,27 @@ class PriceSummary extends Component
     public $partsCost = 0;
     public $totalCost = 0;
 
-    #[On('priceSent')]
-    public function calculatePartCosts($price): void
+    #[On('partsSent')]
+    public function calculatePartCosts($partIds): void
     {
-        if ($this->partsCost == '') {
-            $this->partsCost = 0;
-        }
+        $parts = Part::query()->whereIn('id', $partIds)->get('price');
 
-        $this->partsCost += $price;
-        $this->calculateTotal($price);
+        $this->partsCost = $parts->sum('price');
+
+        $this->calculateTotal();
     }
 
     public function calculateTotal($price = null): void
     {
         $this->totalCost = $this->labourCost;
 
-        if ($price) {
-            $this->totalCost += $price;
-        }
+        $this->totalCost += $this->partsCost;
+    }
+
+    #[On('invoiceCreated')]
+    public function saveTotal($id): void
+    {
+        Invoice::query()->find($id)->update(['total' => $this->totalCost]);
     }
 
     public function render()

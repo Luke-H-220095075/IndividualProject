@@ -26,34 +26,12 @@ class SelectParts extends Component
             ->get();
     }
 
-    public function addPart(): void
+    public function sendParts(): void
     {
-        $part = Part::query()->find($this->partId);
-
-        if ($part !== null) {
-            $this->selectedParts[] = $part;
-
-
-
-            $this->sendPartPrices($part->price);
-        }
+        $this->dispatch('partsSent', $this->selectedParts);
     }
 
-    public function removePart($id):void
-    {
-        $part = Part::query()->find($id);
-
-        $this->selectedParts = array_diff($this->selectedParts, [$part]);
-
-        $this->sendPartPrices($part->price);
-    }
-
-    public function sendPartPrices($price): void
-    {
-        $this->dispatch('priceSent', $price);
-    }
-
-    #[On('bookingCreated')]
+    #[On('invoiceCreated')]
     public function saveParts($id): void
     {
         Invoice::query()->find($id)->update(['parts' => json_encode($this->selectedParts)]);
