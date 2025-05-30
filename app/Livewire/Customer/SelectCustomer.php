@@ -6,10 +6,12 @@ use App\Models\Customer;
 use App\Models\Vehicle;
 use Illuminate\View\View;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class SelectCustomer extends Component
 {
+    #[Validate('required')]
     public $name = '';
     public $phone = '';
     public $email = '';
@@ -53,6 +55,8 @@ class SelectCustomer extends Component
 
     public function saveCustomer(): void
     {
+        $this->validate();
+
         $customer = Customer::query()->updateOrCreate(['id' => $this->customerId], [
             'name' => $this->name,
             'phone' => $this->phone,
