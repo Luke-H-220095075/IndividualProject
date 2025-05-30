@@ -21,6 +21,11 @@ class InvoiceTable extends Component
         $this->invoices = Invoice::all();
     }
 
+    public function setToPaid($id): void
+    {
+        Invoice::query()->find($id)->update(['status' => true]);
+    }
+
     public function deleteInvoice($id): void
     {
         $invoice = Invoice::query()->find($id);

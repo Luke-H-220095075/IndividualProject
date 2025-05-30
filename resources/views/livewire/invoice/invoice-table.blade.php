@@ -6,11 +6,12 @@
         }
     </style>
 
-    <div class="grid grid-cols-5 gap-y-2 my-2 items-center">
+    <div class="grid grid-cols-6 gap-y-2 my-2 items-center">
         <label for="title">Title</label>
         <label for="parts">Parts</label>
         <label for="labour">Labour</label>
         <label for="total">Total</label>
+        <label for="status">Status</label>
         <label></label>
 
         <hr class="col-span-full mx-8">
@@ -31,7 +32,16 @@
 
                 <p id="total">£{{ number_format($invoice->total, 2) }}</p>
 
-                <p wire:click="deleteInvoice({{ $invoice->id }})" class="text-red-500 cursor-pointer">Delete</p>
+                <p id="status">{{ $invoice->status ? 'Paid' : 'Unpaid' }}</p>
+
+                @if(!$invoice->status)
+                    <div class="flex gap-x-8">
+                        <p wire:click="setToPaid({{ $invoice->id }})" class="text-blue-500 cursor-pointer">Set to paid</p>
+                        <p wire:click="deleteInvoice({{ $invoice->id }})" class="text-red-500 cursor-pointer">Delete</p>
+                    </div>
+                @else
+                    <p wire:click="deleteInvoice({{ $invoice->id }})" class="text-red-500 cursor-pointer">Delete</p>
+                @endif
 
                 @if(!$loop->last)
                     <hr class="col-span-full mx-8 border-gray-500">
